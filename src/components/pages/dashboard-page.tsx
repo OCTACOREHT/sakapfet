@@ -4,6 +4,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -238,6 +239,7 @@ export default function DashboardPage() {
                     <h1 className="max-w-2xl font-poppins text-3xl font-black leading-[1.06] text-black transition group-hover:text-zinc-700 md:text-5xl">
                       {TOP_STORY.title}
                     </h1>
+                    <h2 className="sr-only">Description</h2>
                     <p className="max-w-xl text-base leading-relaxed text-zinc-600">
                       {TOP_STORY.description}
                     </p>
@@ -256,12 +258,14 @@ export default function DashboardPage() {
                 initial={{ opacity: 0, scale: 1.02 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.35 }}
-                className="min-h-[300px] overflow-hidden bg-zinc-100"
+                className="relative min-h-[300px] overflow-hidden bg-zinc-100"
               >
-                <img
+                <Image
                   src={TOP_STORY.image}
                   alt={TOP_STORY.title}
-                  className="h-full w-full object-cover"
+                  fill
+                  className="object-cover"
+                  priority
                 />
               </motion.div>
             </div>
@@ -287,9 +291,9 @@ export default function DashboardPage() {
                     >
                       <CategoryBadge category={story.category} />
                       <div className="mt-3 flex items-start justify-between gap-4">
-                        <h2 className="max-w-2xl font-poppins text-lg font-bold leading-snug text-black transition group-hover:text-zinc-700">
+                        <h3 className="max-w-2xl font-poppins text-lg font-bold leading-snug text-black transition group-hover:text-zinc-700">
                           {story.title}
-                        </h2>
+                        </h3>
                         <span className="shrink-0 text-xs font-medium text-zinc-500">
                           {story.time}
                         </span>
@@ -334,9 +338,9 @@ export default function DashboardPage() {
                     </button>
                   ) : null}
                 </div>
-                <h2 className="font-poppins text-xl font-bold leading-tight text-black">
+                <h3 className="font-poppins text-xl font-bold leading-tight text-black">
                   Une deuxieme video pour occuper cette zone et enrichir la home.
-                </h2>
+                </h3>
                 <p className="text-sm leading-relaxed text-zinc-600">
                   Ce bloc reprend exactement la nouvelle video YouTube que tu viens d&apos;envoyer.
                 </p>
@@ -391,10 +395,10 @@ export default function DashboardPage() {
                   </button>
                 ) : null}
               </div>
-              <h2 className="font-poppins text-xl font-bold leading-tight">
+              <h3 className="font-poppins text-xl font-bold leading-tight">
                 Une vraie preuve de diffusion vaut plus qu&apos;une zone decorative.
-              </h2>
-              <p className="text-sm leading-relaxed text-white/72">
+              </h3>
+              <p className="text-sm leading-relaxed text-white/70">
                 Le bloc video sert de preuve immediate pour la presentation client et rapproche la
                 home d&apos;un usage mobile type media d&apos;info.
               </p>
@@ -408,9 +412,9 @@ export default function DashboardPage() {
                   <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-500">
                     Dernieres actualites
                   </span>
-                  <h2 className="mt-1 font-poppins text-2xl font-bold text-black">
+                  <h3 className="mt-1 font-poppins text-2xl font-bold text-black">
                     Le fil principal
-                  </h2>
+                  </h3>
                 </div>
                 <Link
                   href="/actualites"
@@ -430,18 +434,19 @@ export default function DashboardPage() {
                     transition={{ delay: index * 0.04, duration: 0.28 }}
                     className="grid gap-4 p-4 transition hover:bg-zinc-50 md:grid-cols-[164px,1fr]"
                   >
-                    <div className="overflow-hidden rounded-2xl bg-zinc-100">
-                      <img
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-zinc-100">
+                      <Image
                         src={story.image}
                         alt={story.title}
-                        className="aspect-[16/10] h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                        fill
+                        className="object-cover transition duration-500 group-hover:scale-105"
                       />
                     </div>
                     <div className="space-y-3">
                       <CategoryBadge category={story.category} />
-                      <h3 className="font-poppins text-xl font-bold leading-snug text-black transition group-hover:text-zinc-700">
+                      <h4 className="font-poppins text-xl font-bold leading-snug text-black transition group-hover:text-zinc-700">
                         {story.title}
-                      </h3>
+                      </h4>
                       <p className="text-sm leading-relaxed text-zinc-600">{story.summary}</p>
                       <StoryMeta source={story.source} time={story.time} />
                     </div>
@@ -489,9 +494,9 @@ export default function DashboardPage() {
                 className="block px-5 py-4 transition hover:bg-zinc-50"
               >
                 <CategoryBadge category={story.category} />
-                <h2 className="mt-3 font-poppins text-xl font-bold leading-snug text-black">
+                <h3 className="mt-3 font-poppins text-xl font-bold leading-snug text-black">
                   {story.title}
-                </h2>
+                </h3>
                 <p className="mt-2 text-xs font-medium text-zinc-500">{story.time}</p>
               </Link>
             ))}
@@ -508,11 +513,12 @@ export default function DashboardPage() {
               transition={{ delay: index * 0.05, duration: 0.3 }}
               className="overflow-hidden rounded-[24px] border border-black/5 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:shadow-black/5"
             >
-              <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
-                <img
+              <div className="relative aspect-[16/10] overflow-hidden bg-zinc-100">
+                <Image
                   src={story.image}
                   alt={story.title}
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  fill
+                  className="object-cover transition duration-500 group-hover:scale-105"
                 />
               </div>
               <div className="space-y-3 p-5">
