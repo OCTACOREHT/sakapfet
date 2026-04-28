@@ -2,8 +2,10 @@
 
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Volume2 } from "lucide-react";
 import { Newsletter } from "@/components/sections/newsletter";
 
 const CATEGORIES = {
@@ -104,11 +106,13 @@ function CategoryBadge({ category }: { category: string }) {
   );
 }
 
-function timeAgo(text: string) {
-  return <span className="text-xs text-red-600 font-medium">{text}</span>;
-}
-
 export default function DashboardPage() {
+  const [videoWithSound, setVideoWithSound] = useState(false);
+
+  const videoSrc = videoWithSound
+    ? "https://www.youtube.com/embed/utGcaxQGVhY?autoplay=1&mute=0&controls=1&rel=0&modestbranding=1&iv_load_policy=3&loop=1&playlist=utGcaxQGVhY&playsinline=1"
+    : "https://www.youtube.com/embed/utGcaxQGVhY?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&loop=1&playlist=utGcaxQGVhY&playsinline=1";
+
   return (
     <div className="space-y-10 font-poppins">
       {/* ── HERO SECTION ── */}
@@ -148,17 +152,28 @@ export default function DashboardPage() {
 
           {/* Right: Video/Live panel */}
           <div className="flex flex-col bg-zinc-900 text-white p-5 lg:p-6">
-            <div className="flex-1 overflow-hidden rounded-lg bg-black mb-4 min-h-[140px] mx-auto w-full max-w-[240px]">
+            <div className="relative flex-1 overflow-hidden rounded-lg bg-black mb-4 min-h-[140px] mx-auto w-full max-w-[240px]">
               <iframe
                 width="100%"
                 height="100%"
-                src="https://www.youtube.com/embed/utGcaxQGVhY?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&loop=1&playlist=utGcaxQGVhY"
+                src={videoSrc}
                 title="Sakapfet Okap Live"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="h-full w-full scale-[1.15] pointer-events-none select-none"
+                className={`h-full w-full scale-[1.15] select-none ${videoWithSound ? "" : "pointer-events-none"}`}
               ></iframe>
+              {!videoWithSound ? (
+                <button
+                  type="button"
+                  onClick={() => setVideoWithSound(true)}
+                  className="absolute inset-x-3 bottom-3 flex items-center justify-center gap-2 rounded-full bg-black/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-white backdrop-blur transition hover:bg-black"
+                  aria-label="Activer le son de la vidéo"
+                >
+                  <Volume2 className="h-4 w-4" />
+                  Activer le son
+                </button>
+              ) : null}
             </div>
             <div className="flex items-center gap-2 mb-2">
               <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest">
@@ -172,6 +187,30 @@ export default function DashboardPage() {
       </section>
 
       {/* ── 4-COLUMN ARTICLES ── */}
+      <section className="grid gap-4 md:grid-cols-3">
+        <Link href="/videos" className="rounded-2xl border border-black/5 bg-white p-5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5">
+          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-red-600">Videos</span>
+          <h2 className="mt-3 font-poppins text-xl font-bold text-black">Une presence YouTube visible</h2>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+            Directs, reportages et diffusion video pour montrer que le media publie vraiment.
+          </p>
+        </Link>
+        <Link href="/a-propos" className="rounded-2xl border border-black/5 bg-white p-5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5">
+          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-500">Mission</span>
+          <h2 className="mt-3 font-poppins text-xl font-bold text-black">Une ligne editoriale claire</h2>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+            Le client peut comprendre le role du media, son territoire et son positionnement.
+          </p>
+        </Link>
+        <Link href="/contact" className="rounded-2xl border border-black/5 bg-white p-5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5">
+          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-500">Contact</span>
+          <h2 className="mt-3 font-poppins text-xl font-bold text-black">Des points d&apos;entree concrets</h2>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+            Redaction, partenariats et newsletter sont maintenant visibles dans le parcours.
+          </p>
+        </Link>
+      </section>
+
       <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {SECONDARY_ARTICLES.map((article, index) => (
           <Link key={index} href="/actualites/okap-flavors">

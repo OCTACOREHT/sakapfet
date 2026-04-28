@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { NEWSLETTER_EMAIL, YOUTUBE_CHANNEL_URL } from "@/lib/site-content";
+
 const FOOTER_SECTIONS = [
   {
     title: "Rubriques",
@@ -49,7 +51,7 @@ const SOCIALS = [
   { href: "https://tiktok.com", icon: "ri-tiktok-fill", label: "TikTok" },
   { href: "https://linkedin.com", icon: "ri-linkedin-fill", label: "LinkedIn" },
   { href: "https://x.com", icon: "ri-twitter-x-fill", label: "X" },
-  { href: "https://youtube.com", icon: "ri-youtube-fill", label: "YouTube" },
+  { href: YOUTUBE_CHANNEL_URL, icon: "ri-youtube-fill", label: "YouTube" },
 ];
 
 export function Footer() {
@@ -118,16 +120,20 @@ export function Footer() {
             <p className="text-xs text-zinc-400 mb-4 leading-relaxed">
               Recevez l&apos;essentiel de l&apos;actualité du Nord chaque matin.
             </p>
-            <form className="flex flex-col gap-2">
-              <input 
-                type="email" 
-                placeholder="Votre email" 
-                className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#FFD700] transition"
-              />
-              <button className="bg-[#FFD700] text-black text-[10px] font-black uppercase tracking-widest py-2 rounded-lg hover:bg-[#FFD700]/90 transition">
-                S&apos;abonner
-              </button>
-            </form>
+            <div className="flex flex-col gap-2">
+              <Link
+                href="/newsletter"
+                className="rounded-lg bg-[#FFD700] py-2 text-center text-[10px] font-black uppercase tracking-widest text-black transition hover:bg-[#FFD700]/90"
+              >
+                Ouvrir la page newsletter
+              </Link>
+              <a
+                href={`mailto:${NEWSLETTER_EMAIL}?subject=Inscription%20newsletter%20Sakapfet%20Okap`}
+                className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-center text-xs text-white transition hover:border-[#FFD700]"
+              >
+                {NEWSLETTER_EMAIL}
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -1,38 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Send, CheckCircle } from "lucide-react";
+import { ArrowRight, MailCheck, PlayCircle } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { NEWSLETTER_EMAIL, YOUTUBE_CHANNEL_URL } from "@/lib/site-content";
 
 export function Newsletter() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    
-    setStatus("loading");
-    // Simulate API call
-    setTimeout(() => {
-      setStatus("success");
-      setEmail("");
-    }, 1500);
-  };
-
   return (
-    <section className="relative overflow-hidden py-10 md:py-16 border-y border-black/5">
-      {/* Background with subtle patterns */}
-      <div className="absolute inset-0 bg-black z-0" />
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-[#FFD700]/5 blur-[120px] rounded-full translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-1/4 h-full bg-[#FFD700]/5 blur-[100px] rounded-full -translate-x-1/2" />
+    <section className="relative overflow-hidden border-y border-black/5 py-10 md:py-16">
+      <div className="absolute inset-0 z-0 bg-black" />
+      <div className="absolute right-0 top-0 h-full w-1/3 translate-x-1/2 rounded-full bg-[#FFD700]/5 blur-[120px]" />
+      <div className="absolute bottom-0 left-0 h-full w-1/4 -translate-x-1/2 rounded-full bg-[#FFD700]/5 blur-[100px]" />
 
-      <div className="mx-auto max-w-5xl px-6 md:px-12 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-          
-          {/* Text Content */}
+      <div className="relative z-10 mx-auto max-w-5xl px-6 md:px-12">
+        <div className="flex flex-col items-center gap-12 lg:flex-row lg:gap-20">
           <div className="flex-1 text-center lg:text-left">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -40,82 +23,69 @@ export function Newsletter() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-block px-3 py-1 rounded-full bg-[#FFD700]/10 text-[#FFD700] text-[10px] font-bold uppercase tracking-[0.2em] mb-6">
-                Restez Connecté
+              <span className="mb-6 inline-block rounded-full bg-[#FFD700]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFD700]">
+                Audience directe
               </span>
-              <h2 className="font-poppins text-2xl md:text-3xl font-black text-white leading-tight mb-4">
-                Ne manquez rien de l&apos;actualité du <span className="text-[#FFD700]">Grand Nord</span>.
+              <h2 className="mb-4 font-poppins text-2xl font-black leading-tight text-white md:text-3xl">
+                Donne au client un media qui publie, diffuse et capte son audience.
               </h2>
-              <p className="text-zinc-400 text-base leading-relaxed max-w-md mx-auto lg:mx-0">
-                Inscrivez-vous à notre newsletter et recevez chaque matin l&apos;essentiel de l&apos;information directement dans votre boîte mail.
+              <p className="mx-auto max-w-md text-base leading-relaxed text-zinc-400 lg:mx-0">
+                Cette section remplace le faux formulaire par deux parcours credibles : une page
+                newsletter claire et un point d&apos;entree direct vers la chaine YouTube.
               </p>
             </motion.div>
           </div>
 
-          {/* Form Content */}
           <div className="w-full lg:w-[480px]">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/10"
+              className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm md:p-8"
             >
-              {status === "success" ? (
-                <div className="text-center py-6">
-                  <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FFD700]/20 text-[#FFD700] mb-6">
-                    <CheckCircle className="h-8 w-8" />
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Inscription Réussie !</h3>
-                  <p className="text-zinc-400 text-sm">
-                    Merci de votre confiance. Vous allez recevoir un email de confirmation.
-                  </p>
-                  <button 
-                    onClick={() => setStatus("idle")}
-                    className="text-[#FFD700] mt-6 text-xs font-bold uppercase tracking-widest hover:underline"
-                  >
-                    S&apos;inscrire avec un autre email
-                  </button>
+              <div className="space-y-5">
+                <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#FFD700]/20 text-[#FFD700]">
+                  <MailCheck className="h-7 w-7" />
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-zinc-500 ml-1">
-                      Votre adresse email
-                    </label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="exemple@mail.com"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="bg-white/10 border-white/10 text-white placeholder:text-zinc-600 h-14 rounded-xl focus:ring-[#FFD700] focus:border-[#FFD700]"
-                    />
-                  </div>
-                  <Button 
-                    type="submit" 
-                    disabled={status === "loading"}
-                    className="w-full h-14 bg-[#FFD700] hover:bg-[#FFD700]/90 text-black font-black text-sm uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2"
-                  >
-                    {status === "loading" ? (
-                      <span className="h-5 w-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                    ) : (
-                      <>
-                        S&apos;abonner Maintenant
-                        <Send className="h-4 w-4" />
-                      </>
-                    )}
-                  </Button>
-                  <p className="text-[10px] text-center text-zinc-500 leading-relaxed mt-4">
-                    En vous inscrivant, vous acceptez notre politique de confidentialité et recevrez des communications marketing de Sakapfet Okap.
+                <div>
+                  <h3 className="mb-2 text-xl font-bold text-white">Newsletter et diffusion</h3>
+                  <p className="text-sm leading-relaxed text-zinc-400">
+                    Un client fait vite la difference entre une animation de demo et un vrai
+                    parcours. Ici, chaque bouton mene vers une action utile.
                   </p>
-                </form>
-              )}
+                </div>
+                <div className="grid gap-3">
+                  <Button
+                    asChild
+                    className="h-14 w-full rounded-xl bg-[#FFD700] text-sm font-black uppercase tracking-widest text-black hover:bg-[#FFD700]/90"
+                  >
+                    <Link href="/newsletter">
+                      Ouvrir la page newsletter
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <a
+                    href={`mailto:${NEWSLETTER_EMAIL}?subject=Inscription%20newsletter%20Sakapfet%20Okap`}
+                    className="flex h-14 items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 text-sm font-bold text-white transition hover:bg-white/15"
+                  >
+                    Demander l&apos;inscription par email
+                  </a>
+                  <a
+                    href={YOUTUBE_CHANNEL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-14 items-center justify-center gap-2 rounded-xl border border-white/10 bg-transparent px-4 text-sm font-bold text-white transition hover:bg-white/5"
+                  >
+                    Voir les videos publiees
+                    <PlayCircle className="h-4 w-4" />
+                  </a>
+                </div>
+              </div>
             </motion.div>
           </div>
-
         </div>
       </div>
     </section>
   );
 }
+

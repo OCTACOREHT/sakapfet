@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import { Menu, Search } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { YOUTUBE_CHANNEL_URL } from "@/lib/site-content";
 import { useUiStore } from "@/store/ui-store";
 
 const PRIMARY_NAV = [
@@ -73,7 +73,7 @@ export function Topbar() {
             <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X" className="hover:text-[#FFD700] transition">
               <i className="ri-twitter-x-fill text-sm"></i>
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="hover:text-[#FFD700] transition">
+            <a href={YOUTUBE_CHANNEL_URL} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="hover:text-[#FFD700] transition">
               <i className="ri-youtube-fill text-sm"></i>
             </a>
             <span className="mx-1 h-3 w-px bg-zinc-600"></span>
