@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { TrendingUp, TrendingDown, RefreshCcw } from "lucide-react";
+import { TrendingUp, TrendingDown } from "lucide-react";
 
 const CURRENCY_DATA = [
   { pair: "USD / HTG", rate: "131.45", change: "+0.12%", up: true },
@@ -21,9 +20,9 @@ export function CurrencyTicker() {
       <div className="flex animate-marquee items-center gap-12 whitespace-nowrap px-10">
         {items.map((item, index) => (
           <div key={`${item.pair}-${index}`} className="flex items-center gap-3">
-            <span className="text-[11px] font-bold text-zinc-400">{item.pair}</span>
+            <span className="text-[0.6875rem] font-bold text-zinc-400">{item.pair}</span>
             <span className="font-poppins text-sm font-black text-black">{item.rate}</span>
-            <div className={`flex items-center gap-1 text-[10px] font-bold ${item.up ? "text-green-600" : "text-red-600"}`}>
+            <div className={`flex items-center gap-1 text-[0.625rem] font-bold ${item.up ? "text-green-600" : "text-red-600"}`}>
               {item.up ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
               {item.change}
             </div>

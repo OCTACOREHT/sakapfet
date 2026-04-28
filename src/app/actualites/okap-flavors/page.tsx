@@ -4,16 +4,12 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { 
-  Share2, 
   MessageSquare, 
   Clock, 
   Calendar, 
-  User, 
   ChevronRight, 
-  ArrowLeft,
   Facebook,
   Twitter,
-  Linkedin,
   Link as LinkIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -271,7 +267,7 @@ export default function ArticlePage() {
                 </p>
                 <div className="space-y-2">
                   <Input placeholder="Votre email" className="bg-white/10 border-white/20 text-white placeholder:text-zinc-500 h-9 text-xs" />
-                  <Button className="w-full bg-[#FFD700] text-black font-bold h-9 text-xs hover:bg-[#FFD700]/90 transition">S'inscrire</Button>
+                  <Button className="w-full bg-[#FFD700] text-black font-bold h-9 text-xs hover:bg-[#FFD700]/90 transition">S&apos;inscrire</Button>
                 </div>
               </div>
               <div className="absolute -right-4 -bottom-4 h-24 w-24 bg-[#FFD700]/10 rounded-full blur-3xl" />

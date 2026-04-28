@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Calendar, Timer } from "lucide-react";
+import { Timer } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+
+// Target date: 15 days from now for demo
+const TARGET_DATE = new Date();
+TARGET_DATE.setDate(TARGET_DATE.getDate() + 15);
 
 interface TimeLeft {
   days: number;
@@ -16,14 +20,10 @@ interface TimeLeft {
 export function EventCountdown() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
-  // Target date: 15 days from now for demo
-  const targetDate = new Date();
-  targetDate.setDate(targetDate.getDate() + 15);
-
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date().getTime();
-      const distance = targetDate.getTime() - now;
+      const distance = TARGET_DATE.getTime() - now;
 
       if (distance < 0) {
         clearInterval(timer);

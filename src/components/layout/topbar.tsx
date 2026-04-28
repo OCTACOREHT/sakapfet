@@ -54,8 +54,8 @@ export function Topbar() {
   return (
     <>
       {/* Black utility bar - scrolls away */}
-      <div className="bg-black text-white py-1.5 px-4 md:px-6 relative z-[60]">
-        <div className="mx-auto max-w-[1440px] flex items-center justify-between text-[10px] md:text-xs">
+      <div className="bg-black text-white relative z-[60]">
+        <div className="mx-auto max-w-[1440px] px-4 md:px-6 flex items-center justify-between py-1.5 text-[0.625rem] md:text-xs">
           <span className="font-medium tracking-wide">www.sakapfetokap.org</span>
           <div className="flex items-center gap-3">
             <a href="https://facebook.com" className="hover:text-[#FFD700] transition"><i className="ri-facebook-fill"></i></a>
@@ -127,18 +127,18 @@ export function Topbar() {
                   {now.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
                 </span>
               )}
-              <Link href="/newsletter" className="hidden md:flex items-center gap-1.5 rounded-full border border-black/20 bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-black hover:bg-black/5 transition">
+              <Link href="/newsletter" className="hidden md:flex items-center gap-1.5 rounded-full border border-black/20 bg-white px-3 py-1.5 text-[0.625rem] font-bold uppercase tracking-wider text-black hover:bg-black/5 transition">
                 <i className="ri-mail-line"></i>
                 Newsletter
               </Link>
-              <div className="flex items-center gap-2 rounded-full bg-black px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+              <div className="flex items-center gap-2 rounded-full bg-black px-4 py-1.5 text-[0.625rem] font-bold uppercase tracking-[0.2em] text-white">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" />
                 Direct
               </div>
             </div>
           </div>
 
-          <nav className="flex items-center gap-5 md:gap-7 border-t border-black/10 py-3 text-[13px] font-bold text-zinc-800 overflow-x-auto no-scrollbar whitespace-nowrap">
+          <nav className="flex items-center gap-5 md:gap-7 border-t border-black/10 py-3 text-[0.8125rem] font-bold text-zinc-800 overflow-x-auto no-scrollbar whitespace-nowrap">
             {PRIMARY_NAV.map((item) => {
               const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (

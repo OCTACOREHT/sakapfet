@@ -1,13 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, MailCheck, PlayCircle } from "lucide-react";
+import { MailCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { NEWSLETTER_EMAIL, YOUTUBE_CHANNEL_URL } from "@/lib/site-content";
 
 export function Newsletter() {
   const [email, setEmail] = useState("");

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { NEWSLETTER_EMAIL, YOUTUBE_CHANNEL_URL } from "@/lib/site-content";
+import { YOUTUBE_CHANNEL_URL } from "@/lib/site-content";
 
 const FOOTER_SECTIONS = [
   {

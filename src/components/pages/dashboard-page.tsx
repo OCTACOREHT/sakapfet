@@ -273,7 +273,7 @@ export default function DashboardPage() {
             <section className="rounded-[26px] border border-black/5 bg-white">
               <div className="border-b border-black/5 px-5 py-4">
                 <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-500">
-                  L'essentiel
+                  L&apos;essentiel
                 </span>
               </div>
               <div className="divide-y divide-black/5">
