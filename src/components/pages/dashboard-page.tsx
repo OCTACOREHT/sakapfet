@@ -5,348 +5,539 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Volume2 } from "lucide-react";
+import {
+  ArrowRight,
+  Clock3,
+  PlayCircle,
+  Radio,
+  Volume2,
+} from "lucide-react";
+
 import { Newsletter } from "@/components/sections/newsletter";
+import { EventCountdown } from "@/components/sections/event-countdown";
+import { YOUTUBE_CHANNEL_URL } from "@/lib/site-content";
 
 const CATEGORIES = {
   culture: { label: "Culture", color: "#E67E22" },
   politique: { label: "Politique", color: "#E74C3C" },
-  societe: { label: "Société", color: "#3498DB" },
-  economie: { label: "Économie", color: "#27AE60" },
+  societe: { label: "Societe", color: "#3498DB" },
+  economie: { label: "Economie", color: "#27AE60" },
   environnement: { label: "Environnement", color: "#16A085" },
   sports: { label: "Sports", color: "#8E44AD" },
   histoire: { label: "Histoire", color: "#2C3E50" },
   artisanat: { label: "Artisanat", color: "#D35400" },
-};
+} as const;
 
-const HERO_ARTICLE = {
+const TOP_STORY = {
   category: "culture",
-  title: "Okap Flavors : Célébration de la diversité culinaire du Cap-Haïtien",
+  title: "Okap Flavors donne au Cap-Haitien une vitrine culinaire plus visible et plus diffusable",
   description:
-    "L'événement annuel Okap Flavors a réuni des milliers de participants pour célébrer les saveurs uniques du Nord d'Haïti. Une vitrine exceptionnelle pour les chefs locaux et les artisans de la gastronomie haïtienne.",
+    "Le sujet reunit evenement, public, video et territoire. C'est exactement le type de couverture qui donne a la home une allure de vrai media et non de simple maquette.",
   image: "/images/hero-food.png",
   source: "Sakapfet Okap",
   time: "Il y a 45 minutes",
-  bullets: [
-    "Les meilleurs chefs du Nord réunis pour une compétition culinaire inédite",
-    "Plus de 5 000 visiteurs attendus pour cette édition record",
-  ],
+  href: "/actualites/okap-flavors",
 };
 
-const SECONDARY_ARTICLES = [
+const FEATURED_HEADLINES = [
   {
     category: "histoire",
-    title: "Le Palais Sans-Souci : Un patrimoine mondial à préserver",
-    summary:
-      "Un appel à la protection de l'héritage d'Henri Christophe pour booster le tourisme culturel dans le Nord.",
-    image: "/images/palace.png",
-    source: "Sakapfet Okap",
+    title: "Le Palais Sans-Souci reste un actif fort pour l'image du Nord",
     time: "Il y a 1 heure",
+    href: "/actualites/okap-flavors",
   },
   {
     category: "societe",
-    title: "Journalisme communautaire : Former les jeunes voix du Nord",
-    summary:
-      "Renforcer la démocratie locale par une information de proximité et de qualité faite par et pour la communauté.",
-    image: "/images/journalism.png",
-    source: "Sakapfet Okap",
-    time: "Il y a 3 heures",
-  },
-  {
-    category: "culture",
-    title: "Festivités de la Saint-Jacques : Une tradition vivante à la Plaine du Nord",
-    summary:
-      "Un mélange unique de foi, de culture et de traditions qui anime tout le département du Nord.",
-    image: "/images/festival.png",
-    source: "Sakapfet Okap",
-    time: "Il y a 5 heures",
+    title: "Le journalisme communautaire gagne en poids quand la forme devient plus claire",
+    time: "Il y a 2 heures",
+    href: "/actualites/okap-flavors",
   },
   {
     category: "environnement",
-    title: "Opération nettoyage dans la baie du Cap-Haïtien",
-    summary:
-      "Une initiative communautaire exemplaire pour un Cap-Haïtien plus propre et plus vert.",
-    image: "/images/environment.png",
-    source: "Sakapfet Okap",
-    time: "Il y a 8 heures",
+    title: "Les initiatives citoyennes ont besoin d'un support media stable pour durer",
+    time: "Il y a 4 heures",
+    href: "/actualites/okap-flavors",
   },
 ];
 
-const FEATURED_ARTICLE = {
-  category: "artisanat",
-  title: "Artisanat local : Le savoir-faire des mains du Nord à l'honneur",
-  summary:
-    "Valoriser la créativité haïtienne et soutenir l'économie circulaire dans le département du Nord.",
-  image: "/images/artisan.png",
-  source: "Sakapfet Okap",
-  time: "Il y a 10 heures",
-};
+const ESSENTIAL_POINTS = [
+  {
+    category: "histoire",
+    title: "Le Palais Sans-Souci reste un actif fort pour l'image du Nord",
+    time: "Il y a 1 heure",
+    href: "/actualites/okap-flavors",
+  },
+  {
+    category: "societe",
+    title: "Le journalisme communautaire gagne en poids quand la forme devient plus claire",
+    time: "Il y a 2 heures",
+    href: "/actualites/okap-flavors",
+  },
+  {
+    category: "culture",
+    title: "Les grands rendez-vous populaires restent les meilleurs accelerateurs de visibilite",
+    time: "Il y a 3 heures",
+    href: "/actualites/okap-flavors",
+  },
+  {
+    category: "environnement",
+    title: "Les initiatives citoyennes ont besoin d'un support media stable pour durer",
+    time: "Il y a 4 heures",
+    href: "/actualites/okap-flavors",
+  },
+];
 
-const TOP_STORIES = [
-  "Inauguration du nouveau marché central du Cap-Haïtien",
-  "La diaspora investit dans le tourisme du Nord",
-  "Réforme éducative : nouveaux programmes pour les écoles du Nord",
-  "Le port du Cap-Haïtien modernise ses infrastructures",
-  "Festival de jazz du Cap : programmation dévoilée",
-  "Agriculture : les coopératives du Nord se mobilisent",
-  "Santé publique : campagne de vaccination dans le département",
-  "Transport : nouvelle ligne de bus Cap-Haïtien — Port-au-Prince",
+const LATEST_NEWS = [
+  {
+    category: "culture",
+    title: "Les festivites de la Saint-Jacques gardent un vrai poids dans le calendrier local",
+    summary:
+      "Un sujet qui melange tradition, affluence et narration territoriale.",
+    image: "/images/festival.png",
+    source: "Sakapfet Okap",
+    time: "Il y a 3 heures",
+    href: "/actualites/okap-flavors",
+  },
+  {
+    category: "artisanat",
+    title: "Les artisans du Nord gagnent en visibilite quand le media montre les usages et les visages",
+    summary:
+      "Le traitement editorial donne plus de valeur aux acteurs locaux.",
+    image: "/images/artisan.png",
+    source: "Sakapfet Okap",
+    time: "Il y a 5 heures",
+    href: "/actualites/okap-flavors",
+  },
+  {
+    category: "societe",
+    title: "Former les jeunes voix locales reste un enjeu fort pour la credibilite du media",
+    summary:
+      "La proximite editoriale passe aussi par une meilleure structure de publication.",
+    image: "/images/journalism.png",
+    source: "Sakapfet Okap",
+    time: "Il y a 7 heures",
+    href: "/actualites/okap-flavors",
+  },
+  {
+    category: "environnement",
+    title: "Le front de mer du Cap-Haitien devient un sujet de mobilisation concrete",
+    summary:
+      "Le support editorial sert alors de trace, de preuve et de relai.",
+    image: "/images/environment.png",
+    source: "Sakapfet Okap",
+    time: "Il y a 9 heures",
+    href: "/actualites/okap-flavors",
+  },
+];
+
+const QUICK_HEADLINES = [
+  "La diaspora suit plus facilement un media quand la home montre un vrai rythme de publication.",
+  "Les lives YouTube donnent une preuve immediate de presence terrain et de diffusion.",
+  "Les pages A propos et Contact rassurent les partenaires et les annonceurs potentiels.",
+  "Un support editorial plus mobile aide les sujets locaux a mieux circuler.",
+  "Le patrimoine, la culture et la vie communautaire donnent une identite plus nette au media.",
+  "La home doit montrer l'information avant de chercher a montrer le design.",
+];
+
+const EXTRA_NEWS = [
+  {
+    category: "histoire",
+    title: "Le patrimoine du Nord peut soutenir une image media plus institutionnelle",
+    summary:
+      "Les sujets patrimoniaux donnent du relief a la ligne editoriale et sortent le site du simple flux d'actualites.",
+    image: "/images/palace.png",
+    source: "Sakapfet Okap",
+    time: "Il y a 1 heure",
+    href: "/actualites/okap-flavors",
+  },
+  {
+    category: "societe",
+    title: "Les jeunes reporters apportent plus de densite au traitement des sujets locaux",
+    summary:
+      "Plus de terrain, plus de suivi, et une meilleure sensation de media vivant pour le lecteur.",
+    image: "/images/journalism.png",
+    source: "Sakapfet Okap",
+    time: "Il y a 4 heures",
+    href: "/actualites/okap-flavors",
+  },
+  {
+    category: "culture",
+    title: "Les grands rendez-vous populaires restent les meilleurs accelerateurs de visibilité",
+    summary:
+      "Quand ils sont bien racontes, ils servent autant la marque media que le territoire.",
+    image: "/images/festival.png",
+    source: "Sakapfet Okap",
+    time: "Il y a 6 heures",
+    href: "/actualites/okap-flavors",
+  },
 ];
 
 function CategoryBadge({ category }: { category: string }) {
   const cat = CATEGORIES[category as keyof typeof CATEGORIES];
+
   if (!cat) return null;
+
   return (
     <span
-      className="text-[11px] font-bold uppercase tracking-wide"
+      className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em]"
       style={{ color: cat.color }}
     >
+      <span
+        className="h-2 w-2 rounded-full"
+        style={{ backgroundColor: cat.color }}
+      />
       {cat.label}
     </span>
   );
 }
 
+function StoryMeta({ source, time }: { source: string; time: string }) {
+  return (
+    <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-500">
+      <span className="font-medium">{source}</span>
+      <span className="h-1 w-1 rounded-full bg-current opacity-50" />
+      <span className="inline-flex items-center gap-1.5">
+        <Clock3 className="h-3.5 w-3.5" />
+        {time}
+      </span>
+    </div>
+  );
+}
+
 export default function DashboardPage() {
   const [videoWithSound, setVideoWithSound] = useState(false);
+  const [secondaryVideoPlaying, setSecondaryVideoPlaying] = useState(false);
 
   const videoSrc = videoWithSound
-    ? "https://www.youtube.com/embed/utGcaxQGVhY?autoplay=1&mute=0&controls=1&rel=0&modestbranding=1&iv_load_policy=3&loop=1&playlist=utGcaxQGVhY&playsinline=1"
-    : "https://www.youtube.com/embed/utGcaxQGVhY?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&loop=1&playlist=utGcaxQGVhY&playsinline=1";
+    ? "https://www.youtube.com/embed/Xz0NdEZPpOk?si=K_97J5NIT6djTzXe&autoplay=1&mute=0&controls=1&rel=0&modestbranding=1&iv_load_policy=3&loop=1&playlist=Xz0NdEZPpOk&playsinline=1"
+    : "https://www.youtube.com/embed/Xz0NdEZPpOk?si=K_97J5NIT6djTzXe&autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&loop=1&playlist=Xz0NdEZPpOk&playsinline=1";
+
+  const secondaryVideoSrc = secondaryVideoPlaying
+    ? "https://www.youtube.com/embed/9fWLnUDACT8?si=M-LamoQU2rwP3hZ3&autoplay=1&mute=0&controls=0&rel=0&modestbranding=1&playsinline=1"
+    : "https://www.youtube.com/embed/9fWLnUDACT8?si=M-LamoQU2rwP3hZ3&autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&playsinline=1";
 
   return (
-    <div className="space-y-10 font-poppins">
-      {/* ── HERO SECTION ── */}
-      <section>
-        <div className="grid lg:grid-cols-[1fr,1fr,0.8fr] gap-0 bg-zinc-50 rounded-xl overflow-hidden border border-black/5">
-          {/* Left: Text */}
-          <div className="flex flex-col justify-center p-8 lg:p-10">
-            <CategoryBadge category={HERO_ARTICLE.category} />
-            <Link href="/actualites/okap-flavors" className="group/title">
-              <h1 className="mt-3 font-poppins text-3xl lg:text-4xl font-extrabold leading-tight text-black group-hover/title:text-zinc-600 transition">
-                {HERO_ARTICLE.title}
-              </h1>
-            </Link>
-            <ul className="mt-4 space-y-2">
-              {HERO_ARTICLE.bullets.map((b, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-zinc-600 leading-relaxed">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-                  {b}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Center: Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 1.02 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="min-h-[320px] lg:min-h-[400px]"
-          >
-            <img
-              src={HERO_ARTICLE.image}
-              alt={HERO_ARTICLE.title}
-              className="h-full w-full object-cover"
-            />
-          </motion.div>
-
-          {/* Right: Video/Live panel */}
-          <div className="flex flex-col bg-zinc-900 text-white p-5 lg:p-6">
-            <div className="relative flex-1 overflow-hidden rounded-lg bg-black mb-4 min-h-[140px] mx-auto w-full max-w-[240px]">
-              <iframe
-                width="100%"
-                height="100%"
-                src={videoSrc}
-                title="Sakapfet Okap Live"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className={`h-full w-full scale-[1.15] select-none ${videoWithSound ? "" : "pointer-events-none"}`}
-              ></iframe>
-              {!videoWithSound ? (
-                <button
-                  type="button"
-                  onClick={() => setVideoWithSound(true)}
-                  className="absolute inset-x-3 bottom-3 flex items-center justify-center gap-2 rounded-full bg-black/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-white backdrop-blur transition hover:bg-black"
-                  aria-label="Activer le son de la vidéo"
-                >
-                  <Volume2 className="h-4 w-4" />
-                  Activer le son
-                </button>
-              ) : null}
-            </div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest">
-                <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-                Direct
-              </span>
-              <span className="text-sm font-medium text-white/80">Sakapfet Okap Live</span>
-            </div>
-          </div>
+    <div className="space-y-8 font-poppins">
+      <section className="rounded-2xl border border-red-100 bg-red-50 px-4 py-3">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-red-600 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+            <span className="h-2 w-2 rounded-full bg-white" />
+            Breaking
+          </span>
+          <p className="text-sm font-medium leading-relaxed text-zinc-800">
+            Sakapfet Okap prend une forme plus claire, plus mobile et plus credible pour presenter
+            l&apos;actualite du Grand Nord.
+          </p>
         </div>
       </section>
 
-      {/* ── 4-COLUMN ARTICLES ── */}
-      <section className="grid gap-4 md:grid-cols-3">
-        <Link href="/videos" className="rounded-2xl border border-black/5 bg-white p-5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5">
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-red-600">Videos</span>
-          <h2 className="mt-3 font-poppins text-xl font-bold text-black">Une presence YouTube visible</h2>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-            Directs, reportages et diffusion video pour montrer que le media publie vraiment.
-          </p>
-        </Link>
-        <Link href="/a-propos" className="rounded-2xl border border-black/5 bg-white p-5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5">
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-500">Mission</span>
-          <h2 className="mt-3 font-poppins text-xl font-bold text-black">Une ligne editoriale claire</h2>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-            Le client peut comprendre le role du media, son territoire et son positionnement.
-          </p>
-        </Link>
-        <Link href="/contact" className="rounded-2xl border border-black/5 bg-white p-5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5">
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-500">Contact</span>
-          <h2 className="mt-3 font-poppins text-xl font-bold text-black">Des points d&apos;entree concrets</h2>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-            Redaction, partenariats et newsletter sont maintenant visibles dans le parcours.
-          </p>
-        </Link>
+      <section className="grid items-start gap-6 xl:grid-cols-[1.2fr,0.72fr]">
+        <div className="space-y-6 self-start">
+          <section className="overflow-hidden rounded-[26px] border border-black/5 bg-white">
+            <div className="grid lg:grid-cols-[0.92fr,1.08fr]">
+              <Link href={TOP_STORY.href} className="group block">
+                <div className="flex h-full flex-col justify-between p-5 md:p-7">
+                  <div className="space-y-4">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <CategoryBadge category={TOP_STORY.category} />
+                      <span className="rounded-full bg-black px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+                        Top story
+                      </span>
+                    </div>
+                    <h1 className="max-w-2xl font-poppins text-3xl font-black leading-[1.06] text-black transition group-hover:text-zinc-700 md:text-5xl">
+                      {TOP_STORY.title}
+                    </h1>
+                    <p className="max-w-xl text-base leading-relaxed text-zinc-600">
+                      {TOP_STORY.description}
+                    </p>
+                  </div>
+                  <div className="mt-6 flex flex-col gap-4 border-t border-black/5 pt-4 sm:flex-row sm:items-center sm:justify-between">
+                    <StoryMeta source={TOP_STORY.source} time={TOP_STORY.time} />
+                    <span className="inline-flex items-center gap-2 text-sm font-bold text-black">
+                      Lire l&apos;article
+                      <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 1.02 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.35 }}
+                className="min-h-[300px] overflow-hidden bg-zinc-100"
+              >
+                <img
+                  src={TOP_STORY.image}
+                  alt={TOP_STORY.title}
+                  className="h-full w-full object-cover"
+                />
+              </motion.div>
+            </div>
+          </section>
+
+          <EventCountdown />
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            <section className="rounded-[26px] border border-black/5 bg-white">
+              <div className="border-b border-black/5 px-5 py-4">
+                <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-500">
+                  L'essentiel
+                </span>
+              </div>
+              <div className="divide-y divide-black/5">
+                {ESSENTIAL_POINTS.map((story, index) => (
+                  <Link key={story.title} href={story.href} className="group block">
+                    <motion.article
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.04, duration: 0.25 }}
+                      className="px-5 py-4 transition hover:bg-zinc-50"
+                    >
+                      <CategoryBadge category={story.category} />
+                      <div className="mt-3 flex items-start justify-between gap-4">
+                        <h2 className="max-w-2xl font-poppins text-lg font-bold leading-snug text-black transition group-hover:text-zinc-700">
+                          {story.title}
+                        </h2>
+                        <span className="shrink-0 text-xs font-medium text-zinc-500">
+                          {story.time}
+                        </span>
+                      </div>
+                    </motion.article>
+                  </Link>
+                ))}
+              </div>
+            </section>
+
+            <section className="overflow-hidden rounded-[26px] border border-black/5 bg-white">
+              <div className="border-b border-black/5 px-5 py-4">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-500">
+                    Video locale
+                  </span>
+                  <span className="text-xs font-medium text-zinc-500">Nouveau</span>
+                </div>
+              </div>
+              <div className="space-y-4 p-5">
+                <div className="relative overflow-hidden rounded-[22px] bg-zinc-950">
+                  <iframe
+                    width="560"
+                    height="315"
+                    src={secondaryVideoSrc}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                    className={`aspect-video w-full ${secondaryVideoPlaying ? "" : "pointer-events-none"}`}
+                  />
+                  {!secondaryVideoPlaying ? (
+                    <button
+                      type="button"
+                      onClick={() => setSecondaryVideoPlaying(true)}
+                      className="absolute inset-x-4 bottom-4 flex items-center justify-center gap-2 rounded-full bg-black/85 px-4 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-white backdrop-blur transition hover:bg-black"
+                      aria-label="Lire la video locale"
+                    >
+                      <PlayCircle className="h-4 w-4" />
+                      Lancer la video
+                    </button>
+                  ) : null}
+                </div>
+                <h2 className="font-poppins text-xl font-bold leading-tight text-black">
+                  Une deuxieme video pour occuper cette zone et enrichir la home.
+                </h2>
+                <p className="text-sm leading-relaxed text-zinc-600">
+                  Ce bloc reprend exactement la nouvelle video YouTube que tu viens d&apos;envoyer.
+                </p>
+              </div>
+            </section>
+          </div>
+
+        </div>
+
+        <div className="space-y-6">
+          <section className="overflow-hidden rounded-[26px] border border-black/5 bg-black text-white">
+            <div className="border-b border-white/10 px-5 py-4">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-2">
+                  <Radio className="h-4 w-4 text-red-500" />
+                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/75">
+                    Latest video
+                  </span>
+                </div>
+                <a
+                  href={YOUTUBE_CHANNEL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#FFD700]"
+                >
+                  Chaine YouTube
+                  <PlayCircle className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+            <div className="space-y-4 p-5">
+              <div className="relative overflow-hidden rounded-[22px] bg-zinc-950">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={videoSrc}
+                  title="Sakapfet Okap Live"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className={`aspect-video w-full ${videoWithSound ? "" : "pointer-events-none"}`}
+                />
+                {!videoWithSound ? (
+                  <button
+                    type="button"
+                    onClick={() => setVideoWithSound(true)}
+                    className="absolute inset-x-4 bottom-4 flex items-center justify-center gap-2 rounded-full bg-black/85 px-4 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-white backdrop-blur transition hover:bg-black"
+                    aria-label="Activer le son de la video"
+                  >
+                    <Volume2 className="h-4 w-4" />
+                    Activer le son
+                  </button>
+                ) : null}
+              </div>
+              <h2 className="font-poppins text-xl font-bold leading-tight">
+                Une vraie preuve de diffusion vaut plus qu&apos;une zone decorative.
+              </h2>
+              <p className="text-sm leading-relaxed text-white/72">
+                Le bloc video sert de preuve immediate pour la presentation client et rapproche la
+                home d&apos;un usage mobile type media d&apos;info.
+              </p>
+            </div>
+          </section>
+
+          <section className="rounded-[26px] border border-black/5 bg-white">
+            <div className="border-b border-black/5 px-5 py-4">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-500">
+                    Dernieres actualites
+                  </span>
+                  <h2 className="mt-1 font-poppins text-2xl font-bold text-black">
+                    Le fil principal
+                  </h2>
+                </div>
+                <Link
+                  href="/actualites"
+                  className="text-xs font-bold uppercase tracking-[0.18em] text-black"
+                >
+                  Tout voir
+                </Link>
+              </div>
+            </div>
+
+            <div className="divide-y divide-black/5">
+              {LATEST_NEWS.map((story, index) => (
+                <Link key={story.title} href={story.href} className="group block">
+                  <motion.article
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.04, duration: 0.28 }}
+                    className="grid gap-4 p-4 transition hover:bg-zinc-50 md:grid-cols-[164px,1fr]"
+                  >
+                    <div className="overflow-hidden rounded-2xl bg-zinc-100">
+                      <img
+                        src={story.image}
+                        alt={story.title}
+                        className="aspect-[16/10] h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <CategoryBadge category={story.category} />
+                      <h3 className="font-poppins text-xl font-bold leading-snug text-black transition group-hover:text-zinc-700">
+                        {story.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-zinc-600">{story.summary}</p>
+                      <StoryMeta source={story.source} time={story.time} />
+                    </div>
+                  </motion.article>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+        </div>
       </section>
 
-      <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {SECONDARY_ARTICLES.map((article, index) => (
-          <Link key={index} href="/actualites/okap-flavors">
+      <section className="grid gap-6 lg:grid-cols-[0.72fr,1.28fr]">
+        <section className="rounded-[26px] border border-black/5 bg-zinc-50">
+            <div className="border-b border-black/5 px-5 py-4">
+              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-500">
+                More headlines
+              </span>
+            </div>
+            <ul className="divide-y divide-black/5">
+              {QUICK_HEADLINES.map((headline) => (
+                <li key={headline}>
+                  <Link
+                    href="/actualites/okap-flavors"
+                    className="block px-5 py-4 text-sm font-medium leading-relaxed text-zinc-700 transition hover:bg-white"
+                  >
+                    {headline}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+        <section className="rounded-[26px] border border-black/5 bg-white">
+          <div className="border-b border-black/5 px-5 py-4">
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-500">
+              Top headlines
+            </span>
+          </div>
+          <div className="divide-y divide-black/5">
+            {FEATURED_HEADLINES.map((story) => (
+              <Link
+                key={story.title}
+                href={story.href}
+                className="block px-5 py-4 transition hover:bg-zinc-50"
+              >
+                <CategoryBadge category={story.category} />
+                <h2 className="mt-3 font-poppins text-xl font-bold leading-snug text-black">
+                  {story.title}
+                </h2>
+                <p className="mt-2 text-xs font-medium text-zinc-500">{story.time}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </section>
+
+      <section className="grid gap-5 md:grid-cols-3">
+        {EXTRA_NEWS.map((story, index) => (
+          <Link key={story.title} href={story.href} className="group block">
             <motion.article
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.08, duration: 0.4 }}
-              className="group cursor-pointer"
+              transition={{ delay: index * 0.05, duration: 0.3 }}
+              className="overflow-hidden rounded-[24px] border border-black/5 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:shadow-black/5"
             >
-              <div className="aspect-[16/10] overflow-hidden rounded-lg bg-zinc-100">
+              <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
                 <img
-                  src={article.image}
-                  alt={article.title}
+                  src={story.image}
+                  alt={story.title}
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                 />
               </div>
-              <div className="mt-3 space-y-1.5">
-                <CategoryBadge category={article.category} />
-                <h3 className="font-poppins text-[15px] font-bold leading-snug text-black group-hover:text-zinc-600 transition">
-                  {article.title}
+              <div className="space-y-3 p-5">
+                <CategoryBadge category={story.category} />
+                <h3 className="font-poppins text-xl font-bold leading-snug text-black transition group-hover:text-zinc-700">
+                  {story.title}
                 </h3>
-                <p className="text-xs leading-relaxed text-zinc-500 line-clamp-2">
-                  {article.summary}
-                </p>
+                <p className="text-sm leading-relaxed text-zinc-600">{story.summary}</p>
+                <StoryMeta source={story.source} time={story.time} />
               </div>
             </motion.article>
           </Link>
         ))}
       </section>
 
-      {/* ── FEATURED + SIDEBAR ── */}
-      <section className="grid lg:grid-cols-[1fr,0.4fr] gap-8">
-        {/* Featured article */}
-        <Link href="/actualites/okap-flavors" className="group block">
-          <motion.article
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="cursor-pointer"
-          >
-            <div className="aspect-[16/8] overflow-hidden rounded-lg bg-zinc-100">
-              <img
-                src={FEATURED_ARTICLE.image}
-                alt={FEATURED_ARTICLE.title}
-                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-              />
-            </div>
-            <div className="mt-4 space-y-2">
-              <CategoryBadge category={FEATURED_ARTICLE.category} />
-              <h2 className="font-poppins text-2xl font-bold leading-tight text-black group-hover:text-zinc-600 transition">
-                {FEATURED_ARTICLE.title}
-              </h2>
-              <p className="text-sm leading-relaxed text-zinc-500 max-w-2xl">
-                {FEATURED_ARTICLE.summary}
-              </p>
-              <p className="text-xs text-zinc-400">
-                {FEATURED_ARTICLE.source} / {FEATURED_ARTICLE.time}
-              </p>
-            </div>
-          </motion.article>
-        </Link>
-
-        {/* Top Stories Sidebar */}
-        <div>
-          <div className="rounded-xl border border-black/5 bg-zinc-50 overflow-hidden">
-            <div className="bg-[#E74C3C] px-5 py-3">
-              <h3 className="font-poppins text-sm font-bold text-white uppercase tracking-wide">
-                Top Stories
-              </h3>
-            </div>
-            <ul className="divide-y divide-black/5">
-              {TOP_STORIES.map((story, i) => (
-                <li key={i}>
-                  <Link
-                    href="/actualites/okap-flavors"
-                    className="flex items-start gap-3 px-5 py-3 text-sm text-black hover:bg-zinc-100 transition group"
-                  >
-                    <span className="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-black/30 group-hover:bg-[#FFD700] transition" />
-                    <span className="font-medium leading-snug group-hover:text-zinc-600 transition">{story}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
       <Newsletter />
-      
-      {/* ── DERNIÈRES NOUVELLES ── */}
-      <section className="border-t border-black/10 pt-8">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="font-poppins text-2xl font-bold text-black">Dernières Nouvelles</h2>
-            <p className="text-sm text-zinc-500 mt-1">
-              L&apos;essentiel de l&apos;information du Grand Nord d&apos;Haïti.
-            </p>
-          </div>
-          <Link
-            href="/actualites"
-            className="rounded-full border border-black/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-black hover:bg-black/5 transition"
-          >
-            6 Stories
-          </Link>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {[HERO_ARTICLE, ...SECONDARY_ARTICLES.slice(0, 3)].map((article, index) => (
-            <Link key={index} href="/actualites/okap-flavors" className="group">
-              <motion.article
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.06, duration: 0.4 }}
-                className="flex gap-4 cursor-pointer"
-              >
-                <div className="w-40 h-28 shrink-0 overflow-hidden rounded-lg bg-zinc-100">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="flex flex-col justify-center space-y-1.5 min-w-0">
-                  <CategoryBadge category={article.category} />
-                  <h3 className="font-poppins font-bold text-black group-hover:text-zinc-600 transition line-clamp-2">
-                    {article.title}
-                  </h3>
-                  <p className="text-xs text-zinc-400">
-                    {article.source ?? "Sakapfet Okap"} / {article.time}
-                  </p>
-                </div>
-              </motion.article>
-            </Link>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }

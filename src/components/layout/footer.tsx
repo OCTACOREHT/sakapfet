@@ -120,20 +120,20 @@ export function Footer() {
             <p className="text-xs text-zinc-400 mb-4 leading-relaxed">
               Recevez l&apos;essentiel de l&apos;actualité du Nord chaque matin.
             </p>
-            <div className="flex flex-col gap-2">
-              <Link
-                href="/newsletter"
-                className="rounded-lg bg-[#FFD700] py-2 text-center text-[10px] font-black uppercase tracking-widest text-black transition hover:bg-[#FFD700]/90"
+            <form className="flex flex-col gap-2">
+              <input
+                type="email"
+                placeholder="Votre email"
+                className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-white outline-none transition focus:border-[#FFD700]"
+                required
+              />
+              <button
+                type="submit"
+                className="rounded-lg bg-[#FFD700] py-2 text-[10px] font-black uppercase tracking-widest text-black transition hover:bg-[#FFD700]/90"
               >
-                Ouvrir la page newsletter
-              </Link>
-              <a
-                href={`mailto:${NEWSLETTER_EMAIL}?subject=Inscription%20newsletter%20Sakapfet%20Okap`}
-                className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-center text-xs text-white transition hover:border-[#FFD700]"
-              >
-                {NEWSLETTER_EMAIL}
-              </a>
-            </div>
+                S&apos;abonner
+              </button>
+            </form>
           </div>
         </div>
       </div>
