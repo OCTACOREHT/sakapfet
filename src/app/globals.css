@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-body: "Inter", sans-serif;
+  --font-heading: "Syne", sans-serif;
+  --background: #FFFFFF;
+  --surface: rgba(0, 0, 0, 0.04);
+  --line: rgba(0, 0, 0, 0.12);
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  background: #FFFFFF;
+  color: #050505;
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
+}
+
+
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer components {
+  .glass-card {
+    backdrop-filter: blur(18px);
+    background:
+      linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+      rgba(10, 10, 10, 0.92);
+  }
+
+  .glow-positive {
+    color: #16a34a;
+    text-shadow: none;
+  }
+
+  .glow-negative {
+    color: #dc2626;
+    text-shadow: none;
+  }
+
+  .dashboard-grid {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: linear-gradient(180deg, black 0%, transparent 100%);
+  }
+
+  .ticker-track {
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .text-shimmer {
+    background: linear-gradient(90deg, #fff 0%, #d4d4d4 40%, #fff 80%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

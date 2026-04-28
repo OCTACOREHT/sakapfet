@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Neon Finance Nexus
 
-## Getting Started
+Dashboard financier temps reel construit avec Next.js 14, TypeScript, Tailwind CSS, Framer Motion, TanStack Query, SWR, Zustand, Recharts, Lightweight Charts, CoinGecko, Alpha Vantage, Yahoo Finance fallback et NewsAPI.
 
-First, run the development server:
+## Stack
+
+- Next.js 14.2.35 avec App Router
+- TypeScript strict
+- Tailwind CSS 3 avec theme neon/glassmorphism
+- Framer Motion pour les animations
+- TanStack Query + SWR pour le data fetching et le refresh temps reel
+- Zustand pour la watchlist, les alertes et le portefeuille simule
+- Recharts + Lightweight Charts
+- react-hot-toast pour les notifications
+- tsparticles pour le fond anime
+
+## Fonctionnalites
+
+- Dashboard hero avec horloges des marches, statut live et ticker horizontal
+- Graphique chandeliers interactif pour les actions
+- Watchlist personnalisable avec alertes de prix navigateur
+- Flux news financier filtre avec sentiment heuristique
+- Portefeuille simule avec P&L temps reel et allocation sectorielle
+- Screener d'actions avec filtres et export CSV
+- Section crypto temps reel via CoinGecko + CoinCap WebSocket
+
+## Installation
+
+Prerequis recommandes:
+
+- Node.js 20 LTS
+- npm 10+
+
+Installation:
+
+```bash
+npm install
+cp .env.local.example .env.local
+npm run dev
+```
+
+Application disponible sur `http://localhost:3000`.
+
+## Variables d'environnement
+
+Copiez `.env.local.example` vers `.env.local` puis renseignez:
+
+```env
+ALPHA_VANTAGE_API_KEY=your_alpha_vantage_api_key
+NEWS_API_KEY=your_newsapi_api_key
+NEXT_PUBLIC_COINCAP_WS_URL=wss://ws.coincap.io/prices?assets=bitcoin,ethereum,solana,xrp,dogecoin,cardano
+NEXT_PUBLIC_ENABLE_PARTICLES=true
+```
+
+Notes:
+
+- Sans `ALPHA_VANTAGE_API_KEY`, le projet bascule sur Yahoo Finance puis sur des donnees mock coherentes.
+- Sans `NEWS_API_KEY`, les news utilisent un fallback local categorie.
+- CoinGecko ne requiert pas de cle.
+
+## Scripts
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+src/
+├─ app/
+│  ├─ api/
+│  ├─ crypto/
+│  ├─ news/
+│  ├─ portfolio/
+│  ├─ screener/
+│  ├─ layout.tsx
+│  └─ page.tsx
+├─ components/
+│  ├─ charts/
+│  ├─ layout/
+│  ├─ pages/
+│  ├─ providers/
+│  ├─ ui/
+│  └─ widgets/
+├─ hooks/
+├─ lib/
+├─ store/
+└─ types/
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Verification
 
-## Learn More
+Commandes validees localement:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notes runtime
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Le projet fonctionne en mode demo sans cles API grace aux fallbacks integres.
+- Les alertes de prix utilisent l'API `Notification` du navigateur.
+- Les images d'articles restent en balises `img` pour accepter des sources distantes variees sans liste blanche stricte.
+- Si vous voulez un environnement totalement stable, utilisez Node 20 LTS plutot que Node 21.
