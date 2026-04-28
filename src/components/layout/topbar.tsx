@@ -55,7 +55,7 @@ export function Topbar() {
     <>
       {/* Black utility bar - scrolls away */}
       <div className="bg-black text-white relative z-[60]">
-        <div className="mx-auto max-w-[1440px] px-4 md:px-6 flex items-center justify-between py-2 text-[0.75rem] md:text-sm">
+        <div className="mx-auto max-w-[1440px] px-4 md:px-6 flex items-center justify-between py-2 text-[0.6875rem] md:text-sm">
           <span className="font-medium tracking-wide">www.sakapfetokap.org</span>
           <div className="flex items-center gap-3">
             <a href="https://facebook.com" className="hover:text-[#FFD700] transition"><i className="ri-facebook-fill"></i></a>
@@ -145,7 +145,7 @@ export function Topbar() {
             </div>
           </div>
 
-          <nav className="flex w-full items-center justify-between border-t border-black/10 py-3 px-0 md:px-6 text-[0.9375rem] md:text-[0.8125rem] font-bold text-zinc-800 overflow-x-auto no-scrollbar whitespace-nowrap gap-5 md:gap-0">
+          <nav className="flex w-full items-center justify-between border-t border-black/10 py-3 px-0 md:px-6 text-[0.875rem] md:text-[0.8125rem] font-bold text-zinc-800 overflow-x-auto no-scrollbar whitespace-nowrap gap-4 md:gap-0">
             {PRIMARY_NAV.map((item) => {
               const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (
