@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  distDir: ".next-runtime",
-};
+const nextConfig = {};
 
 export default nextConfig;
