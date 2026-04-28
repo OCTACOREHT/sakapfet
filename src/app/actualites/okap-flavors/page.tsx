@@ -24,7 +24,7 @@ const ARTICLE = {
   author: "Jean-Pierre Laurent",
   date: "28 Avril 2026",
   readTime: "6 min",
-  image: "/images/hero-food.png",
+  image: "/images/image.png",
   content: `
     <p class="text-lg leading-relaxed mb-6">
       L'événement annuel Okap Flavors a réuni des milliers de participants ce week-end dans la cité christophienne pour célébrer les saveurs uniques du Nord d'Haïti. Une vitrine exceptionnelle pour les chefs locaux et les artisans de la gastronomie haïtienne qui ont su émerveiller les papilles des visiteurs nationaux et internationaux.

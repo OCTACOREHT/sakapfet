@@ -33,7 +33,7 @@ const TOP_STORY = {
   title: "Okap Flavors donne au Cap-Haitien une vitrine culinaire plus visible et plus diffusable",
   description:
     "Le sujet reunit evenement, public, video et territoire. C'est exactement le type de couverture qui donne a la home une allure de vrai media et non de simple maquette.",
-  image: "/images/hero-food.png",
+  image: "/images/image.png",
   source: "Sakapfet Okap",
   time: "Il y a 45 minutes",
   href: "/actualites/okap-flavors",
