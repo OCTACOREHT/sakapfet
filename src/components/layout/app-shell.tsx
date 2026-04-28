@@ -10,7 +10,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-x-hidden">
       <div className="pointer-events-none absolute inset-0 dashboard-grid opacity-20" />
       <div className="relative min-h-screen">
         <Topbar />

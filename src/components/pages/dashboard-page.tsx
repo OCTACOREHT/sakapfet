@@ -204,6 +204,8 @@ function StoryMeta({ source, time }: { source: string; time: string }) {
   );
 }
 
+import { CurrencyTicker } from "@/components/layout/currency-ticker";
+
 export default function DashboardPage() {
   const [videoWithSound, setVideoWithSound] = useState(false);
   const [secondaryVideoPlaying, setSecondaryVideoPlaying] = useState(false);
@@ -218,18 +220,7 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8 font-poppins">
-      <section className="rounded-2xl border border-red-100 bg-red-50 px-4 py-3">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-red-600 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
-            <span className="h-2 w-2 rounded-full bg-white" />
-            Breaking
-          </span>
-          <p className="text-sm font-medium leading-relaxed text-zinc-800">
-            Sakapfet Okap prend une forme plus claire, plus mobile et plus credible pour presenter
-            l&apos;actualite du Grand Nord.
-          </p>
-        </div>
-      </section>
+      <CurrencyTicker />
 
       <section className="grid items-start gap-6 xl:grid-cols-[1.2fr,0.72fr]">
         <div className="space-y-6 self-start">
