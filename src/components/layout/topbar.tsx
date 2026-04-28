@@ -1,14 +1,14 @@
- "use client";
+"use client";
 
 import { useState, useEffect } from "react";
-import { Menu, Search } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { Search, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { YOUTUBE_CHANNEL_URL } from "@/lib/site-content";
 import { useUiStore } from "@/store/ui-store";
+import { YOUTUBE_CHANNEL_URL } from "@/lib/site-content";
 
 const PRIMARY_NAV = [
   { href: "/", label: "Actualités" },
@@ -82,7 +82,14 @@ export function Topbar() {
             </Button>
 
             <Link href="/" className="shrink-0">
-              <img src="/Sakapfetokap.png" alt="logo" className="h-8 md:h-10 w-auto object-contain" />
+              <Image 
+                src="/Sakapfetokap.png" 
+                alt="logo" 
+                width={200}
+                height={40}
+                className="h-8 md:h-10 w-auto object-contain" 
+                priority
+              />
             </Link>
 
             <div className="relative hidden lg:flex items-center flex-grow mx-3 gap-2">
@@ -138,7 +145,7 @@ export function Topbar() {
             </div>
           </div>
 
-          <nav className="flex items-center gap-5 md:gap-7 border-t border-black/10 py-3 text-[0.8125rem] font-bold text-zinc-800 overflow-x-auto no-scrollbar whitespace-nowrap">
+          <nav className="flex w-full items-center justify-between border-t border-black/10 py-3 px-8 text-[0.8125rem] font-bold text-zinc-800 overflow-x-auto no-scrollbar whitespace-nowrap gap-4 md:gap-0">
             {PRIMARY_NAV.map((item) => {
               const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (
