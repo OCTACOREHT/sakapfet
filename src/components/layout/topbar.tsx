@@ -138,7 +138,7 @@ export function Topbar() {
             </div>
           </div>
 
-          <nav className="hidden items-center gap-7 border-t border-black/10 py-3 text-[13px] font-bold text-zinc-800 lg:flex">
+          <nav className="flex items-center gap-5 md:gap-7 border-t border-black/10 py-3 text-[13px] font-bold text-zinc-800 overflow-x-auto no-scrollbar whitespace-nowrap">
             {PRIMARY_NAV.map((item) => {
               const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (
