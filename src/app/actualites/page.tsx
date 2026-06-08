@@ -3,7 +3,7 @@ import { sectionDefinitions } from "@/lib/site-content";
 
 const actualitesSection = {
   slug: "actualites",
-  label: "Actualites",
+  label: "Okap",
   kicker: "Couverture editoriale",
   description:
     "Le fil principal des sujets publies par Sakapfet Okap autour du Grand Nord, de la culture, des initiatives locales et des temps forts communautaires.",
@@ -15,4 +15,3 @@ const actualitesSection = {
 export default function ActualitesPage() {
   return <SectionPage section={actualitesSection} />;
 }
-

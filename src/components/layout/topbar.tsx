@@ -11,22 +11,22 @@ import { useUiStore } from "@/store/ui-store";
 import { YOUTUBE_CHANNEL_URL } from "@/lib/site-content";
 
 const PRIMARY_NAV = [
-  { href: "/", label: "Actualités" },
-  { href: "/culture", label: "Culture" },
-  { href: "/economie", label: "Économie" },
-  { href: "/evenements", label: "Événements" },
-  { href: "/sports", label: "Sports" },
-  { href: "/societe", label: "Société" },
-  { href: "/politique", label: "Politique" },
-  { href: "/technologie", label: "Technologie" },
-  { href: "/education", label: "Éducation" },
-  { href: "/sante", label: "Santé" },
-  { href: "/haiti", label: "Haïti" },
-  { href: "/monde", label: "Monde" },
-  { href: "/diaspora", label: "Diaspora" },
-  { href: "/tourisme", label: "Tourisme" },
-  { href: "/opinions", label: "Opinions" },
-  { href: "/videos", label: "Vidéos" },
+  { href: "/", label: "Okap" },
+  { href: "/culture", label: "Gonaives" },
+  { href: "/economie", label: "Jacmel" },
+  { href: "/evenements", label: "Port-au-Prince" },
+  { href: "/sports", label: "Port-de-Paix" },
+  { href: "/societe", label: "Les Cayes" },
+  { href: "/politique", label: "Jeremie" },
+  { href: "/technologie", label: "Hinche" },
+  { href: "/education", label: "Miragoane" },
+  { href: "/sante", label: "Saint-Marc" },
+  { href: "/haiti", label: "Fort-Liberte" },
+  { href: "/monde", label: "Ouanaminthe" },
+  { href: "/diaspora", label: "Petit-Goave" },
+  { href: "/tourisme", label: "Leogane" },
+  { href: "/opinions", label: "Mirebalais" },
+  { href: "/videos", label: "Aquin" },
 ];
 
 const LANGUAGES = [

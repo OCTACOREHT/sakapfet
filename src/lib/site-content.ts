@@ -46,7 +46,7 @@ function makeStory(
 export const sectionDefinitions: SectionDefinition[] = [
   {
     slug: "culture",
-    label: "Culture",
+    label: "Gonaives",
     kicker: "Territoire, memoire, creation",
     description:
       "Festivals, patrimoine, artistes et savoir-faire qui racontent le Grand Nord.",
@@ -84,7 +84,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "economie",
-    label: "Economie",
+    label: "Jacmel",
     kicker: "Commerce, investissement, initiatives",
     description:
       "Suivi des activites economiques, de l'emploi local et des opportunites pour la region.",
@@ -122,7 +122,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "evenements",
-    label: "Evenements",
+    label: "Port-au-Prince",
     kicker: "Agenda, terrain, mobilisations",
     description:
       "Le calendrier des rendez-vous locaux, des lives et des temps forts communautaires.",
@@ -160,7 +160,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "sports",
-    label: "Sports",
+    label: "Port-de-Paix",
     kicker: "Jeunesse, clubs, competition",
     description:
       "Le sport local comme espace de cohesion, de visibilite et de mobilisation communautaire.",
@@ -198,7 +198,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "societe",
-    label: "Societe",
+    label: "Les Cayes",
     kicker: "Vie locale, citoyennete, proximite",
     description:
       "Initiatives de quartier, enjeux sociaux, terrain et parole communautaire.",
@@ -236,7 +236,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "politique",
-    label: "Politique",
+    label: "Jeremie",
     kicker: "Decision publique et impact local",
     description:
       "Lecture locale des decisions, de la gouvernance et de leurs effets sur le terrain.",
@@ -274,7 +274,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "technologie",
-    label: "Technologie",
+    label: "Hinche",
     kicker: "Numerique utile et diffusion",
     description:
       "Outils, usages numeriques et transformation des contenus pour le public local.",
@@ -312,7 +312,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "education",
-    label: "Education",
+    label: "Miragoane",
     kicker: "Jeunesse, formation, transmission",
     description:
       "Ecoles, projets educatifs, apprentissage communautaire et initiatives pour la jeunesse.",
@@ -350,7 +350,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "sante",
-    label: "Sante",
+    label: "Saint-Marc",
     kicker: "Prevention, acces, information claire",
     description:
       "Une couverture utile, simple et locale autour des enjeux de sante publique.",
@@ -388,7 +388,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "haiti",
-    label: "Haiti",
+    label: "Fort-Liberte",
     kicker: "Lecture nationale avec ancrage local",
     description:
       "Le pays vu depuis le Nord, avec un angle utile pour la communaute et la diaspora.",
@@ -426,7 +426,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "monde",
-    label: "Monde",
+    label: "Ouanaminthe",
     kicker: "Ouvertures et reperes",
     description:
       "Regards internationaux utiles au public local sans perdre l'ancrage haitien.",
@@ -464,7 +464,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "diaspora",
-    label: "Diaspora",
+    label: "Petit-Goave",
     kicker: "Lien, relais, rayonnement",
     description:
       "Les histoires, projets et connexions entre le Nord et les communautes a l'exterieur.",
@@ -502,7 +502,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "tourisme",
-    label: "Tourisme",
+    label: "Leogane",
     kicker: "Destination, patrimoine, experience",
     description:
       "Le Nord comme territoire a vivre, documenter et rendre visible de facon credible.",
@@ -540,7 +540,7 @@ export const sectionDefinitions: SectionDefinition[] = [
   },
   {
     slug: "opinions",
-    label: "Opinions",
+    label: "Mirebalais",
     kicker: "Points de vue et analyses",
     description:
       "Une rubrique pour la lecture, l'argument et les debats utiles au territoire.",
@@ -586,4 +586,3 @@ export const allNewsStories = sectionDefinitions.flatMap((section) => [
   section.featured,
   ...section.stories,
 ]);
-
